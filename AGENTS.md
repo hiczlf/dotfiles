@@ -1,30 +1,50 @@
 # AGENTS.md
 
-## Scope
+## Project Scope
 
-This repository contains personal dotfiles for multiple platforms: macOS, Linux, and Windows.
+This repository contains personal dotfiles for multiple platforms:
+
+- macOS
+- Linux
+- Windows
+
 macOS is the primary development platform.
 
 ## Source Of Truth
 
-Read [README.md](README.md) first and treat it as the authoritative project overview.
-If this file and README conflict, follow README.
+This file is generated only from [README.md](README.md).
 
-## Tool Context
+If this file and `README.md` disagree, follow `README.md`.
 
-Expected tools in this repo context:
-- zoxide (cross-platform directory jumping)
-- fnm (Node version management)
-- neovim (CLI editor)
-- zsh (macOS and Linux)
-- powershell (Windows)
+Do not treat this file as evidence for tools, workflows, files, or platform behavior that are not mentioned in `README.md`.
+
+## Tools Mentioned In README
+
+Cross-platform tools:
+
+- `zoxide`: directory jumping across different locations.
+- `fnm`: Node.js version management.
+- `neovim`: command-line editor.
+
+macOS and Linux:
+
+- `zsh`
+
+Windows:
+
+- `powershell`
+
+## Installation
+
+The README states that installation is managed with `chezmoi`.
+
+Do not replace the installation approach with a different tool or workflow unless the user explicitly asks for that change.
 
 ## Agent Working Rules
 
-- Keep edits minimal and scoped to the user request.
-- Preserve cross-platform intent unless the user explicitly asks for platform-specific changes.
-- Prefer documenting assumptions in PR/chat output when platform behavior may differ.
-
-## Setup Note
-
-Installation flow is managed with chezmoi, as documented in [README.md](README.md).
+- Read `README.md` before making project-level changes.
+- Preserve the repository goal of supporting macOS, Linux, and Windows.
+- Treat macOS as the primary platform, but do not make a change macOS-only unless the user explicitly requests it.
+- When platform behavior may differ, state the platform assumption in the response.
+- Do not introduce new tools, setup steps, directory conventions, or platform-specific rules unless the user explicitly requests them or updates `README.md` first.
+- For installation-related changes, keep the workflow centered on `chezmoi`.
