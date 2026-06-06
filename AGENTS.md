@@ -26,19 +26,28 @@ Cross-platform tools:
 - `fnm`: Node.js version management.
 - `neovim`: command-line editor.
 
-macOS and Linux:
+Shell by platform:
 
-- `zsh`
-
-Windows:
-
-- `powershell`
+- macOS: `zsh`
+- Linux: `bash`
+- Windows: `powershell`
 
 ## Installation
 
 The README states that installation is managed with `chezmoi`.
 
 Do not replace the installation approach with a different tool or workflow unless the user explicitly asks for that change.
+
+## Architecture
+
+The README defines this layout:
+
+- `common/`
+- `linux/`
+- `mac/`
+- `windows/`
+
+Preserve this architecture unless the user explicitly asks to change it.
 
 ## Agent Working Rules
 

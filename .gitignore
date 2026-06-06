@@ -46,3 +46,5 @@ nvim/debug/
 nvim/doc/tags
 nvim/tt.*
 nvim/foo.*
+nvim/lazy-lock.json
+nvim/lazyvim.json
