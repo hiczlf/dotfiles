@@ -16,9 +16,17 @@
 - mac: zsh
 - linux: bash
 
+# 目录
+
+- `common/nvim`: 跨平台共享的 Neovim 配置源
+
 # 安装
 
 使用 `chezmoi` 进行安装
+
+```sh
+chezmoi apply
+```
 
 # 架构
 

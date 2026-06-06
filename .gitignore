@@ -39,12 +39,12 @@ build/
 coverage/
 
 # Neovim local/generated files
-nvim/.tests/
-nvim/.repro/
-nvim/data/
-nvim/debug/
-nvim/doc/tags
-nvim/tt.*
-nvim/foo.*
-nvim/lazy-lock.json
-nvim/lazyvim.json
+common/nvim/.tests/
+common/nvim/.repro/
+common/nvim/data/
+common/nvim/debug/
+common/nvim/doc/tags
+common/nvim/tt.*
+common/nvim/foo.*
+common/nvim/lazy-lock.json
+common/nvim/lazyvim.json
