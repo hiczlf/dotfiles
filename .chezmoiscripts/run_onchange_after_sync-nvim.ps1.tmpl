@@ -1,0 +1,26 @@
+{{- if eq .chezmoi.os "windows" -}}
+$ErrorActionPreference = "Stop"
+
+# common/nvim source checksums:
+# .neoconf.json {{ include (joinPath .chezmoi.sourceDir "common" "nvim" ".neoconf.json") | sha256sum }}
+# LICENSE {{ include (joinPath .chezmoi.sourceDir "common" "nvim" "LICENSE") | sha256sum }}
+# stylua.toml {{ include (joinPath .chezmoi.sourceDir "common" "nvim" "stylua.toml") | sha256sum }}
+{{- range $path := glob (joinPath .chezmoi.sourceDir "common" "nvim" "**" "*.lua") }}
+# {{ trimPrefix (printf "%s/" (joinPath $.chezmoi.sourceDir "common" "nvim")) $path }} {{ include $path | sha256sum }}
+{{- end }}
+
+$Source = {{ quote (joinPath .chezmoi.sourceDir "common" "nvim") }}
+$Destination = Join-Path $HOME "AppData\Local\nvim"
+$Parent = Split-Path -Parent $Destination
+
+New-Item -ItemType Directory -Force -Path $Parent | Out-Null
+
+robocopy $Source $Destination /MIR /XF lazy-lock.json lazyvim.json | Out-Host
+$ExitCode = $LASTEXITCODE
+
+if ($ExitCode -ge 8) {
+  exit $ExitCode
+}
+
+exit 0
+{{- end }}

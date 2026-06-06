@@ -1,0 +1,26 @@
+{{- if ne .chezmoi.os "windows" -}}
+#!/bin/sh
+set -eu
+
+# common/nvim source checksums:
+# .neoconf.json {{ include (joinPath .chezmoi.sourceDir "common" "nvim" ".neoconf.json") | sha256sum }}
+# LICENSE {{ include (joinPath .chezmoi.sourceDir "common" "nvim" "LICENSE") | sha256sum }}
+# stylua.toml {{ include (joinPath .chezmoi.sourceDir "common" "nvim" "stylua.toml") | sha256sum }}
+{{- range $path := glob (joinPath .chezmoi.sourceDir "common" "nvim" "**" "*.lua") }}
+# {{ trimPrefix (printf "%s/" (joinPath $.chezmoi.sourceDir "common" "nvim")) $path }} {{ include $path | sha256sum }}
+{{- end }}
+
+src={{ quote (joinPath .chezmoi.sourceDir "common" "nvim") }}
+dest={{ quote (joinPath .chezmoi.homeDir ".config" "nvim") }}
+
+if ! command -v rsync >/dev/null 2>&1; then
+  echo "rsync is required to sync Neovim config" >&2
+  exit 1
+fi
+
+mkdir -p "$(dirname "$dest")"
+rsync -a --delete \
+  --exclude 'lazy-lock.json' \
+  --exclude 'lazyvim.json' \
+  "$src"/ "$dest"/
+{{- end }}

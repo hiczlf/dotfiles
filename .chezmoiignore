@@ -3,3 +3,9 @@ AGENTS.md
 install.sh
 common
 common/**
+
+{{- if eq .chezmoi.os "windows" }}
+.chezmoiscripts/sync-nvim.sh
+{{- else }}
+.chezmoiscripts/sync-nvim.ps1
+{{- end }}
