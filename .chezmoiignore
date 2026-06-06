@@ -4,6 +4,10 @@ install.sh
 common
 common/**
 
+{{- if ne .chezmoi.os "darwin" }}
+.zshrc
+{{- end }}
+
 {{- if eq .chezmoi.os "windows" }}
 .chezmoiscripts/sync-nvim.sh
 {{- else }}

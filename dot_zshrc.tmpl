@@ -1,0 +1,27 @@
+{{- if eq .chezmoi.os "darwin" -}}
+export http_proxy="http://localhost:7890"
+export https_proxy="http://localhost:7890"
+
+
+export CLICOLOR=1
+
+# alias
+alias vim='nvim'
+
+# 设置我的脚本目录
+export PATH="$HOME/bin:$PATH"
+
+# 设置不同的命令环境
+
+# brew
+eval "$(/opt/homebrew/bin/brew shellenv zsh)"
+$(/opt/homebrew/bin/brew shellenv zsh)
+
+# starship
+eval "$(starship init zsh)"
+# fnm
+eval "$(fnm env --use-on-cd --shell zsh)"
+
+# zoxide ----- must at end
+eval "$(zoxide init zsh)"
+{{- end }}
