@@ -1,0 +1,36 @@
+{{- if ne .chezmoi.os "windows" -}}
+#!/bin/sh
+set -eu
+
+platform={{ quote .chezmoi.os }}
+src={{ quote (joinPath .chezmoi.sourceDir "common" "bin" .chezmoi.os) }}
+dest={{ quote (joinPath .chezmoi.homeDir "bin") }}
+
+# common/bin/{{ .chezmoi.os }} source checksums:
+{{- range $path := glob (joinPath .chezmoi.sourceDir "common" "bin" .chezmoi.os "*") }}
+# {{ trimPrefix (printf "%s/" (joinPath $.chezmoi.sourceDir "common" "bin" $.chezmoi.os)) $path }} {{ include $path | sha256sum }}
+{{- end }}
+
+if [ ! -d "$src" ]; then
+  echo "missing bin source directory for $platform: $src" >&2
+  exit 1
+fi
+
+if ! command -v rsync >/dev/null 2>&1; then
+  echo "rsync is required to sync bin scripts" >&2
+  exit 1
+fi
+
+if ! find "$src" -type f ! -name '.gitkeep' | grep -q .; then
+  echo "no bin scripts for $platform; skipping"
+  exit 0
+fi
+
+mkdir -p "$dest"
+rsync -a --delete \
+  --exclude '.DS_Store' \
+  --exclude '.gitkeep' \
+  "$src"/ "$dest"/
+
+find "$dest" -type f -exec chmod 755 {} +
+{{- end }}

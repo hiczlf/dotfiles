@@ -10,6 +10,8 @@ common/**
 
 {{- if eq .chezmoi.os "windows" }}
 .chezmoiscripts/sync-nvim.sh
+.chezmoiscripts/sync-bin.sh
 {{- else }}
 .chezmoiscripts/sync-nvim.ps1
+.chezmoiscripts/sync-bin.ps1
 {{- end }}

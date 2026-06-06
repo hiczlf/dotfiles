@@ -1,0 +1,32 @@
+{{- if eq .chezmoi.os "windows" -}}
+$ErrorActionPreference = "Stop"
+
+$Source = {{ quote (joinPath .chezmoi.sourceDir "common" "bin" "windows") }}
+$Destination = Join-Path $HOME "bin"
+
+# common/bin/windows source checksums:
+{{- range $path := glob (joinPath .chezmoi.sourceDir "common" "bin" "windows" "*") }}
+# {{ trimPrefix (printf "%s/" (joinPath $.chezmoi.sourceDir "common" "bin" "windows")) $path }} {{ include $path | sha256sum }}
+{{- end }}
+
+if (-not (Test-Path -LiteralPath $Source -PathType Container)) {
+  throw "missing bin source directory for windows: $Source"
+}
+
+$Files = Get-ChildItem -LiteralPath $Source -File | Where-Object { $_.Name -ne ".gitkeep" }
+if (-not $Files) {
+  Write-Host "no bin scripts for windows; skipping"
+  exit 0
+}
+
+New-Item -ItemType Directory -Force -Path $Destination | Out-Null
+
+robocopy $Source $Destination /MIR /XF .DS_Store .gitkeep | Out-Host
+$ExitCode = $LASTEXITCODE
+
+if ($ExitCode -ge 8) {
+  exit $ExitCode
+}
+
+exit 0
+{{- end }}

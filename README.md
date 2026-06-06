@@ -19,6 +19,9 @@
 # 目录
 
 - `common/nvim`: 跨平台共享的 Neovim 配置源
+- `common/bin/darwin`: macOS 专用脚本，应用到 `~/bin`
+- `common/bin/linux`: Linux 专用脚本，应用到 `~/bin`
+- `common/bin/windows`: Windows 专用脚本，应用到 `$HOME\bin`
 
 # 安装
 
