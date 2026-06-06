@@ -1,0 +1,5 @@
+[user]
+	name = lf
+	email = lifeng.luck@qq.com
+[core]
+	autocrlf = input
