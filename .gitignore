@@ -1,0 +1,48 @@
+# OS metadata
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Editor and tool caches
+.idea/
+.vscode/
+*.swp
+*.swo
+*.swn
+*~
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+*.bak
+*.orig
+
+# Local environment and machine-specific files
+.env
+.env.*
+!.env.example
+!.env.*.example
+!.env.tmpl
+!.env.*.tmpl
+*.local
+
+# Dependency directories and build output
+node_modules/
+dist/
+build/
+coverage/
+
+# Neovim local/generated files
+nvim/.tests/
+nvim/.repro/
+nvim/data/
+nvim/debug/
+nvim/doc/tags
+nvim/tt.*
+nvim/foo.*
