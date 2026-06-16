@@ -1,16 +1,33 @@
 {{- if eq .chezmoi.os "windows" -}}
-$env:http_proxy = "http://localhost:7890"
-$env:https_proxy = "http://localhost:7890"
 
-$env:Path = "$HOME\bin;$env:Path"
+# 设置 HTTP 和 HTTPS 代理
+$env:HTTP_PROXY = 'http://127.0.0.1:7890'
+$env:HTTPS_PROXY = 'http://127.0.0.1:7890'
 
-Set-Alias -Name vim -Value nvim
+# 如果需要绕过代理的地址
+$env:NO_PROXY = 'localhost,127.0.0.1,.example.com'
 
+# 设置 fnm
 if (Get-Command fnm -ErrorAction SilentlyContinue) {
-  fnm env --use-on-cd --shell powershell | Out-String | Invoke-Expression
+    fnm env --use-on-cd --shell powershell | Out-String | Invoke-Expression
+
+    # SSH 远程登录时，fnm 可能已经初始化，但没有激活任何 Node 版本
+    if ((fnm current) -eq "none") {
+        $defaultNode = fnm default
+
+        if ($defaultNode) {
+            fnm use $defaultNode | Out-Null
+        }
+    }
 }
 
-if (Get-Command zoxide -ErrorAction SilentlyContinue) {
-  zoxide init powershell | Out-String | Invoke-Expression
-}
+# setup zoxide
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
+
+# set vim alias
+Set-Alias -Name vim -Value nvim
+#EditMode使用 emacs模式, 这样终端快捷键linux,mac,windows会比较容易
+Set-PSReadLineOption -EditMode Emacs
+
+
 {{- end }}
