@@ -1,0 +1,16 @@
+{{- if eq .chezmoi.os "windows" -}}
+$env:http_proxy = "http://localhost:7890"
+$env:https_proxy = "http://localhost:7890"
+
+$env:Path = "$HOME\bin;$env:Path"
+
+Set-Alias -Name vim -Value nvim
+
+if (Get-Command fnm -ErrorAction SilentlyContinue) {
+  fnm env --use-on-cd --shell powershell | Out-String | Invoke-Expression
+}
+
+if (Get-Command zoxide -ErrorAction SilentlyContinue) {
+  zoxide init powershell | Out-String | Invoke-Expression
+}
+{{- end }}

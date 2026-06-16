@@ -8,6 +8,10 @@ common/**
 .zshrc
 {{- end }}
 
+{{- if ne .chezmoi.os "windows" }}
+Documents/PowerShell
+{{- end }}
+
 {{- if eq .chezmoi.os "windows" }}
 .chezmoiscripts/sync-nvim.sh
 .chezmoiscripts/sync-bin.sh

@@ -31,6 +31,18 @@
 chezmoi apply
 ```
 
+Windows 使用 PowerShell 运行同样的命令:
+
+```powershell
+chezmoi apply
+```
+
+Windows 会配置 PowerShell 7 的 profile, 并同步:
+
+- `common/nvim` 到 `$HOME\AppData\Local\nvim`
+- `common/bin/windows` 到 `$HOME\bin`
+- `fnm`, `zoxide`, `nvim` 相关的 PowerShell 初始化
+
 # 架构
 
 ```
