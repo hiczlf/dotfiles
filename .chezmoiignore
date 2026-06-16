@@ -9,7 +9,7 @@ common/**
 {{- end }}
 
 {{- if ne .chezmoi.os "windows" }}
-Documents/PowerShell
+Documents
 {{- end }}
 
 {{- if eq .chezmoi.os "windows" }}
